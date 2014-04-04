@@ -344,7 +344,7 @@
 		new_character.name = real_name
 
 		ready_dna(new_character, client.prefs.blood_type)
-
+		new_character.dna.mutantrace = client.prefs.mutantrace
 		new_character.key = key		//Manually transfer the key to log them in
 
 		return new_character

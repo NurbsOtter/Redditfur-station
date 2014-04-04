@@ -77,7 +77,6 @@
 
 	if(blood_type)
 		owner.dna.blood_type = blood_type
-
 	if(ui)
 		owner.dna.uni_identity = ui
 		updateappearance(owner)

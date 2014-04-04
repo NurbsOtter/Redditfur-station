@@ -86,7 +86,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 /mob/living/carbon/human/proc/update_base_icon_state()
 	var/race = dna ? dna.mutantrace : null
 	switch(race)
-		if("lizard","golem","slime","shadow","adamantine","fly","plant")
+		if("lizard","golem","slime","shadow","adamantine","fly","plant","otter","ferret","sergal","fox","cat","shep")
 			base_icon_state = "[dna.mutantrace]_[(gender == FEMALE) ? "f" : "m"]"
 		if("skeleton")
 			base_icon_state = "skeleton"

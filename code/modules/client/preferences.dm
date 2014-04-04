@@ -18,7 +18,15 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"blob" = IS_MODE_COMPILED("blob"),					 // 9
 )
 
-
+var/global/list/raceList = list(
+	"human",
+	"sergal",
+	"otter",
+	"ferret",
+	"lizard",
+	"fox",
+	"cat",
+)
 datum/preferences
 	//doohickeys for savefiles
 	var/path
@@ -81,6 +89,8 @@ datum/preferences
 	var/metadata = ""
 
 	var/unlock_content = 0
+		//RFURMOD
+	var/mutantrace = "human"
 
 /datum/preferences/New(client/C)
 	blood_type = random_blood_type()
@@ -88,9 +98,9 @@ datum/preferences
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			load_path(C.ckey)
-			unlock_content = C.IsByondMember()
-			if(unlock_content)
-				max_save_slots = 8
+			//unlock_content = C.IsByondMember()
+			//if(unlock_content)
+			max_save_slots = 8 //Because seriously.
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
 		if(load_character())
@@ -167,7 +177,7 @@ datum/preferences
 				dat += "<b>Skin Tone:</b><BR><a href='?_src_=prefs;preference=s_tone;task=input'>[skin_tone]</a><BR>"
 				dat += "<b>Underwear:</b><BR><a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
 				dat += "<b>Backpack:</b><BR><a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><BR>"
-
+				dat += "<b>Race:</b><BR><a href='?_src_=prefs;preference=mutantrace;task=input'>[mutantrace]</a><BR>"
 
 				dat += "</td><td valign='top' width='28%'>"
 
@@ -597,7 +607,11 @@ datum/preferences
 							new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in facial_hair_styles_female_list
 						if(new_facial_hair_style)
 							facial_hair_style = new_facial_hair_style
-
+					if("mutantrace")
+						var/new_mutantrace
+						new_mutantrace = input(user, "Choose your race:","Character Preference") as null|anything in raceList
+						if (new_mutantrace)
+							mutantrace = new_mutantrace
 					if("underwear")
 						var/new_underwear
 						if(gender == MALE)
@@ -725,7 +739,7 @@ datum/preferences
 		character.hair_style = hair_style
 		character.facial_hair_style = facial_hair_style
 		character.underwear = underwear
-
+		  //RFURMOD
 		if(backbag > 3 || backbag < 1)
 			backbag = 1 //Same as above
 		character.backbag = backbag
