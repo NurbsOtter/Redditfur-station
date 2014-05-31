@@ -50,8 +50,11 @@
 	var/mob/living/carbon/L = .
 	if(istype(L))
 		if(prob(15))
-			L.Weaken(3)
-			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
+			if (L.dna.mutantrace == "otter")
+				L.visible_message("The [src] almost knocked [L] down, but they're otterly immune to feesh.")
+			else
+				L.Weaken(3)
+				L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
 
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
